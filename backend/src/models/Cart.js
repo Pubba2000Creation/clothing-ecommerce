@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const productSize = require('../enum/products.size.enum');
 const cartSchema = new mongoose.Schema(
     {
         user: {
@@ -17,6 +17,7 @@ const cartSchema = new mongoose.Schema(
                 },
                 size: {
                     type: String,
+                    enum: Object.values(productSize),
                     required: true,
                 },
                 quantity: {
