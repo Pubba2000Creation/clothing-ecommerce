@@ -16,21 +16,9 @@ const seedProducts = async () => {
         await Product.deleteMany();
         console.log('🧹 Existing products removed');
 
-        const expandedProducts = [];
+        const insertedProducts = await Product.insertMany(productsSeed);
 
-        productsSeed.forEach((product, index) => {
-            for (let i = 1; i <= 4; i++) {
-                expandedProducts.push({
-                    ...product,
-                    name: `${product.name} ${i}`,
-                    price: product.price + i * 100,
-                });
-            }
-        });
-
-        await Product.insertMany(expandedProducts.slice(0, 40));
-
-        console.log('🌱 40 Products seeded successfully');
+        console.log(`🌱 ${insertedProducts.length} Products seeded successfully`);
         process.exit();
     } catch (error) {
         console.error('❌ Seeding error:', error);
