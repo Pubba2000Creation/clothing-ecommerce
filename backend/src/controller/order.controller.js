@@ -104,7 +104,32 @@ const getMyOrders = async (req, res) => {
     }
 };
 
+//the email sending tester
+const testEmail = async (req, res) => {
+    try {
+
+        const tosendemail = req.body.email;
+        await sendEmail({
+            to: tosendemail,
+            subject: 'Test Email',
+            html: '<h2>Test Email</h2><p>This is a test email</p>',
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Email sent successfully',
+        });
+    } catch (error) {
+        console.error('[TEST EMAIL ERROR]', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+        });
+    }
+};
+
 module.exports = {
     checkout,
     getMyOrders,
+    testEmail,
 };
