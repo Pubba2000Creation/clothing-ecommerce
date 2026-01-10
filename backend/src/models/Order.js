@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const productSize = require('../enum/productSize');
+const productSize = require('../enum/products.size.enum');
 const orderSchema = new mongoose.Schema(
     {
         user: {
