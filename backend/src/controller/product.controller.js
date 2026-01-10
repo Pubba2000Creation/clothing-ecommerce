@@ -7,20 +7,24 @@ const Product = require('../models/Product');
  */
 const getProducts = async (req, res) => {
     try {
-        const resPerPage = Number(req.query.limit) || 10;
+        const params = { ...req.query, ...req.body };
+        const resPerPage = Number(params.limit) || 10;
         const productsCount = await Product.countDocuments({ isActive: true });
 
-        const apiFeatures = new APIFeatures(Product.find({ isActive: true }), req.query)
+        const apiFeatures = new APIFeatures(Product.find({ isActive: true }), params)
             .search()
             .filter();
 
-        // Get filtered products count before pagination
-        let products = await apiFeatures.query;
-        let filteredProductsCount = products.length;
+        // Get filtered products count before pagination efficiently
+        const filteredProductsCountQuery = apiFeatures.query.clone();
+        const filteredProductsCount = await filteredProductsCountQuery.countDocuments();
 
-        // Apply pagination
+        // Apply pagination and sort
         apiFeatures.pagination(resPerPage);
-        products = await apiFeatures.query.clone().sort({ createdAt: -1 });
+        const products = await apiFeatures.query.sort({ createdAt: -1 });
+
+        const currentPage = Number(params.page) || 1;
+        const totalPages = Math.ceil(filteredProductsCount / resPerPage);
 
         return res.status(200).json({
             success: true,
@@ -32,9 +36,13 @@ const getProducts = async (req, res) => {
                 items: products,
                 pagination: {
                     total: filteredProductsCount,
-                    page: Number(req.query.page) || 1,
+                    page: currentPage,
                     limit: resPerPage,
-                    totalPages: Math.ceil(filteredProductsCount / resPerPage),
+                    totalPages: totalPages,
+                    hasNextPage: currentPage < totalPages,
+                    hasPrevPage: currentPage > 1,
+                    nextPage: currentPage < totalPages ? currentPage + 1 : null,
+                    prevPage: currentPage > 1 ? currentPage - 1 : null,
                 },
             },
         });
