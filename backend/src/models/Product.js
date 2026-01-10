@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-categoryEnum = require('../enum/products.category.enum');
+const productCategory = require('../enum/products.category.enum');
+const productSize = require('../enum/products.size.enum');
+
 const productSchema = new mongoose.Schema(
     {
         name: {
@@ -20,12 +22,13 @@ const productSchema = new mongoose.Schema(
         },
         category: {
             type: String,
-            enum: categoryEnum,
+            enum: Object.values(productCategory),
             required: true,
         },
         sizes: {
-            type: [String], 
-            default: [],
+            type: [String],
+            enum: Object.values(productSize),
+            required: true,
         },
         isActive: {
             type: Boolean,
