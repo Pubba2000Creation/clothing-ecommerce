@@ -6,6 +6,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 
@@ -22,6 +24,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>
