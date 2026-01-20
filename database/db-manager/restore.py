@@ -27,3 +27,5 @@ command = [
 subprocess.run(command, check=True)
 
 print("Restore completed")
+
+#python restore.py backups/backup_2026-01-20_10-00-00
