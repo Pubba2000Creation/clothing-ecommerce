@@ -1,18 +1,44 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../api/axios';
 import '../styles/Home.css';
 import Footer from '../components/Footer';
 
 const Home = () => {
-    const [activeTab, setActiveTab] = useState('best-seller');
+    const [activeTab, setActiveTab] = useState('top-rate');
+    const [newArrivals, setNewArrivals] = useState([]);
+    const [topRated, setTopRated] = useState([]);
+    const [topSellers, setTopSellers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const products = [
-        { id: "69622711395786e4c6f06fa2", name: "Minimalist Linen Shirt", price: "$49.00", badge: "NEW", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=500&q=80" },
-        { id: "69622711395786e4c6f06fa3", name: "Casual Cotton Chinos", price: "$59.00", badge: "TRENDING", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=500&q=80" },
-        { id: "69622711395786e4c6f06fa4", name: "Summer Silk Dress", price: "$89.00", badge: "NEW", img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=500&q=80" },
-        { id: "69622711395786e4c6f06fa5", name: "Modern Wool Blazer", price: "$129.00", badge: "TOP SALE", img: "https://images.unsplash.com/photo-1591366754631-98744c062860?auto=format&fit=crop&w=500&q=80" },
-    ];
+    useEffect(() => {
+        const fetchHomeData = async () => {
+            try {
+                setLoading(true);
+                const [newRes, ratedRes, sellersRes] = await Promise.all([
+                    api.get('/products/new-arrivals'),
+                    api.get('/products/top-rated'),
+                    api.get('/products/top-sellers')
+                ]);
+
+                if (newRes.data.success) setNewArrivals(newRes.data.data);
+                if (ratedRes.data.success) setTopRated(ratedRes.data.data);
+                if (sellersRes.data.success) setTopSellers(sellersRes.data.data);
+            } catch (error) {
+                console.error('Error fetching home data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchHomeData();
+    }, []);
+
+    const getTrendingProducts = () => {
+        if (activeTab === 'top-rate') return topRated;
+        if (activeTab === 'top-sale') return topSellers;
+        return [];
+    };
 
     return (
         <div className="home-container">
@@ -29,18 +55,26 @@ const Home = () => {
             {/* NEW ARRIVALS */}
             <section className="new-arrivals">
                 <h2 className="section-title">New Arrivals</h2>
-                <div className="arrivals-grid">
-                    {products.map(product => (
-                        <Link key={product.id} to={`/product/${product.id}`} className="product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <div className="product-image">
-                                <span className="badge">{product.badge}</span>
-                                <img src={product.img} alt={product.name} />
-                            </div>
-                            <h3>{product.name}</h3>
-                            <p style={{ color: 'var(--olive)', fontWeight: 'bold' }}>{product.price}</p>
-                        </Link>
-                    ))}
-                </div>
+                {loading ? (
+                    <div className="loading">Loading...</div>
+                ) : (
+                    <div className="arrivals-grid">
+                        {newArrivals.length > 0 ? (
+                            newArrivals.map(product => (
+                                <Link key={product._id} to={`/product/${product._id}`} className="product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <div className="product-image">
+                                        <span className="badge">NEW</span>
+                                        <img src={product.imageUrl} alt={product.name} />
+                                    </div>
+                                    <h3>{product.name}</h3>
+                                    <p style={{ color: 'var(--olive)', fontWeight: 'bold' }}>Rs. {product.price}</p>
+                                </Link>
+                            ))
+                        ) : (
+                            <p>No new arrivals found.</p>
+                        )}
+                    </div>
+                )}
             </section>
 
             {/* TRENDING NOW (Tabs) */}
@@ -60,20 +94,29 @@ const Home = () => {
                         Top Sale
                     </button>
                 </div>
-                <div className="trending-grid arrivals-grid">
-                    {products.slice(0, 3).map(product => (
-                        <Link key={product.id} to={`/product/${product.id}`} className="product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <div className="product-image">
-                                <img src={product.img} alt={product.name} />
-                            </div>
-                            <h3>{product.name}</h3>
-                            <p style={{ color: 'var(--olive)', fontWeight: 'bold' }}>{product.price}</p>
-                        </Link>
-                    ))}
-                </div>
+                {loading ? (
+                    <div className="loading">Loading...</div>
+                ) : (
+                    <div className="trending-grid arrivals-grid">
+                        {getTrendingProducts().length > 0 ? (
+                            getTrendingProducts().map(product => (
+                                <Link key={product._id} to={`/product/${product._id}`} className="product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <div className="product-image">
+                                        <img src={product.imageUrl} alt={product.name} />
+                                    </div>
+                                    <h3>{product.name}</h3>
+                                    <p style={{ color: 'var(--olive)', fontWeight: 'bold' }}>Rs. {product.price}</p>
+                                </Link>
+                            ))
+                        ) : (
+                            <p>No products found in this category.</p>
+                        )}
+                    </div>
+                )}
             </section>
 
             {/* COLLECTION SECTION */}
+            {/* ... keeping the static collections as they are ... */}
             <section className="collections">
                 <h2 className="section-title">Collections</h2>
                 <div className="collection-banners">

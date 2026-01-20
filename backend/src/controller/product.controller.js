@@ -118,16 +118,14 @@ const getTopRated = async (req, res) => {
     try {
         const analytics = await ProductAnalytics.find()
             .sort({ addToCartCount: -1 })
-            .limit(8)
-            .populate({
-                path: 'product',
-                match: { isActive: true }
-            });
+            .limit(20) // Fetch extra to ensure we get enough active products
+            .populate('product');
 
-        // Filter out null products (if a product was deactivated/deleted but still has analytics)
         const products = analytics
-            .filter(item => item.product)
-            .map(item => item.product);
+            // @ts-ignore
+            .filter(item => item.product && item.product.isActive)
+            .map(item => item.product)
+            .slice(0, 8);
 
         return res.status(200).json({
             success: true,
@@ -150,15 +148,14 @@ const getTopSellers = async (req, res) => {
     try {
         const analytics = await ProductAnalytics.find()
             .sort({ orderCount: -1 })
-            .limit(8)
-            .populate({
-                path: 'product',
-                match: { isActive: true }
-            });
+            .limit(20) // Fetch extra to ensure we get enough active products
+            .populate('product');
 
         const products = analytics
-            .filter(item => item.product)
-            .map(item => item.product);
+            // @ts-ignore
+            .filter(item => item.product && item.product.isActive)
+            .map(item => item.product)
+            .slice(0, 8);
 
         return res.status(200).json({
             success: true,
