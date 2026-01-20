@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import '../styles/Products.css';
 import Footer from '../components/Footer';
@@ -141,13 +142,13 @@ const Products = () => {
                         <>
                             <div className="products-grid">
                                 {products.map(product => (
-                                    <div key={product._id} className="product-card">
+                                    <Link key={product._id} to={`/product/${product._id}`} className="product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
                                         <div className="product-image">
                                             <img src={product.imageUrl || 'https://via.placeholder.com/300x400?text=No+Image'} alt={product.name} />
                                         </div>
                                         <h3 style={{ fontSize: '1rem', margin: '0.5rem 0' }}>{product.name}</h3>
-                                        <p style={{ color: 'var(--olive)', fontWeight: '700' }}>${product.price.toFixed(2)}</p>
-                                    </div>
+                                        <p style={{ color: 'var(--olive)', fontWeight: '700' }}>${product.price ? product.price.toFixed(2) : '0.00'}</p>
+                                    </Link>
                                 ))}
                             </div>
 

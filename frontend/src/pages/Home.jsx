@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import Footer from '../components/Footer';
 
@@ -7,10 +8,10 @@ const Home = () => {
     const [activeTab, setActiveTab] = useState('best-seller');
 
     const products = [
-        { id: 1, name: "Minimalist Linen Shirt", price: "$49.00", badge: "NEW", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=500&q=80" },
-        { id: 2, name: "Casual Cotton Chinos", price: "$59.00", badge: "TRENDING", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=500&q=80" },
-        { id: 3, name: "Summer Silk Dress", price: "$89.00", badge: "NEW", img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=500&q=80" },
-        { id: 4, name: "Modern Wool Blazer", price: "$129.00", badge: "TOP SALE", img: "https://images.unsplash.com/photo-1591366754631-98744c062860?auto=format&fit=crop&w=500&q=80" },
+        { id: "69622711395786e4c6f06fa2", name: "Minimalist Linen Shirt", price: "$49.00", badge: "NEW", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=500&q=80" },
+        { id: "69622711395786e4c6f06fa3", name: "Casual Cotton Chinos", price: "$59.00", badge: "TRENDING", img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=500&q=80" },
+        { id: "69622711395786e4c6f06fa4", name: "Summer Silk Dress", price: "$89.00", badge: "NEW", img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=500&q=80" },
+        { id: "69622711395786e4c6f06fa5", name: "Modern Wool Blazer", price: "$129.00", badge: "TOP SALE", img: "https://images.unsplash.com/photo-1591366754631-98744c062860?auto=format&fit=crop&w=500&q=80" },
     ];
 
     return (
@@ -21,7 +22,7 @@ const Home = () => {
                     <p className="hero-subtitle">NEW ARRIVAL</p>
                     <h1 className="hero-title">Experience the Art of Premium Living</h1>
                     <p style={{ marginBottom: '2rem', fontSize: '1.2rem', color: '#555' }}>Explore our exclusive Spring collection designed for the modern individual.</p>
-                    <a href="/products" className="hero-btn">SHOP THE COLLECTION</a>
+                    <Link to="/products" className="hero-btn">SHOP THE COLLECTION</Link>
                 </div>
             </section>
 
@@ -30,14 +31,14 @@ const Home = () => {
                 <h2 className="section-title">New Arrivals</h2>
                 <div className="arrivals-grid">
                     {products.map(product => (
-                        <div key={product.id} className="product-card">
+                        <Link key={product.id} to={`/product/${product.id}`} className="product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <div className="product-image">
                                 <span className="badge">{product.badge}</span>
                                 <img src={product.img} alt={product.name} />
                             </div>
                             <h3>{product.name}</h3>
                             <p style={{ color: 'var(--olive)', fontWeight: 'bold' }}>{product.price}</p>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </section>
@@ -66,15 +67,14 @@ const Home = () => {
                     </button>
                 </div>
                 <div className="trending-grid arrivals-grid">
-                    {/* Reusing product grid for demo */}
                     {products.slice(0, 3).map(product => (
-                        <div key={product.id} className="product-card">
+                        <Link key={product.id} to={`/product/${product.id}`} className="product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <div className="product-image">
                                 <img src={product.img} alt={product.name} />
                             </div>
                             <h3>{product.name}</h3>
                             <p style={{ color: 'var(--olive)', fontWeight: 'bold' }}>{product.price}</p>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </section>
