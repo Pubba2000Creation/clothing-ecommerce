@@ -62,6 +62,7 @@ const Navbar = () => {
 
                         {isAuthenticated ? (
                             <div className="user-profile">
+                                <Link to="/orders" className="nav-link" style={{ marginRight: '1rem', fontSize: '0.8rem' }}>MY ORDERS</Link>
                                 <span className="user-initials">{user?.name ? user.name[0].toUpperCase() : 'U'}</span>
                                 <button onClick={handleLogout} className="logout-simple">Logout</button>
                             </div>
