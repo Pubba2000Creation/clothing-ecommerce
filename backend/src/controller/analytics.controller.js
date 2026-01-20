@@ -53,7 +53,7 @@ const getOverallStats = async (req, res) => {
         // Get top products summary (most ordered)
         const topProducts = await ProductAnalytics.find()
             .sort({ orderCount: -1 })
-            .limit(5)
+            .limit(100)
             .populate('product', 'name price');
 
         return res.status(200).json({
