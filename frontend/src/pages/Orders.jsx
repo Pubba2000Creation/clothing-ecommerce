@@ -70,10 +70,10 @@ const Orders = () => {
                                                 If backend doesn't populate, we show placeholders or just details we have.
                                             */}
                                             <div className="order-item-img">
-                                                <img src={`https://via.placeholder.com/70x90?text=Item`} alt="Product" />
+                                                <img src={item.product?.imageUrl || 'https://via.placeholder.com/70x90?text=Item'} alt={item.product?.name} />
                                             </div>
                                             <div className="order-item-text">
-                                                <h4>Product #{item.product.slice(-5)}</h4>
+                                                <h4>{item.product?.name || `Product #${(item.product?._id || item.product)?.toString().slice(-5)}`}</h4>
                                                 <p>Size: {item.size} | Quantity: {item.quantity}</p>
                                             </div>
                                         </div>

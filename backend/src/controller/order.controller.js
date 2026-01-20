@@ -1,5 +1,6 @@
 const Cart = require('../models/Cart');
 const Order = require('../models/Order');
+const Product = require('../models/Product');
 const sendEmail = require('../utils/email/sendEmail');
 
 /**
@@ -22,14 +23,21 @@ const checkout = async (req, res) => {
         let totalPrice = 0;
 
         const orderItems = cart.items.map((item) => {
-            const itemTotal = item.product.price * item.quantity;
+            // Ensure product is populated and exists
+            if (!item.product || typeof item.product !== 'object') {
+                throw new Error('Product not found in cart');
+            }
+
+            // @ts-ignore
+            const price = item.product.price;
+            const itemTotal = price * item.quantity;
             totalPrice += itemTotal;
 
             return {
                 product: item.product._id,
                 size: item.size,
                 quantity: item.quantity,
-                price: item.product.price,
+                price: price,
             };
         });
 
@@ -40,7 +48,7 @@ const checkout = async (req, res) => {
         });
 
         // 🧹 Clear cart after checkout
-        cart.items = [];
+        cart.items.splice(0);
         await cart.save();
 
         // 📧 Send confirmation email
@@ -86,9 +94,11 @@ const checkout = async (req, res) => {
  */
 const getMyOrders = async (req, res) => {
     try {
-        const orders = await Order.find({ user: req.user._id }).sort({
-            createdAt: -1,
-        });
+        const orders = await Order.find({ user: req.user._id })
+            .populate('items.product')
+            .sort({
+                createdAt: -1,
+            });
 
         return res.status(200).json({
             success: true,

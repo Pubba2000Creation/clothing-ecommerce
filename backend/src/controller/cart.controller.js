@@ -149,9 +149,7 @@ const removeFromCart = async (req, res) => {
             });
         }
 
-        cart.items = cart.items.filter(
-            (item) => item._id.toString() !== req.params.itemId
-        );
+        cart.items.pull(req.params.itemId);
 
         await cart.save();
 
