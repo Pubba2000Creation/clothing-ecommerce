@@ -1,0 +1,26 @@
+docker-compose up --build -d
+
+to check the status of the containers
+
+docker ps
+docker ps && docker logs clothing_mongodb && docker logs clothing_db_manager
+
+
+to buid the containers
+
+docker-compose up --build -d
+
+to start the containers
+
+docker-compose up -d
+
+to stop the containers
+
+docker-compose down
+
+
+to migrate the database
+docker exec -it clothing_mongodb mongo
+
+to seed the database
+node src/seed.js
