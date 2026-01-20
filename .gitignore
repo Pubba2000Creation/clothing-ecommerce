@@ -17,3 +17,8 @@ yarn-debug.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Database data and backups
+database/mongo/data/
+database/db-manager/backups/
+database/db-manager/__pycache__/
