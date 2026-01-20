@@ -20,6 +20,5 @@ Thumbs.db
 
 # Database data and backups
 database/mongo/data/
-database/mongo/data/*
 database/db-manager/backups/
 database/db-manager/__pycache__/
