@@ -3,12 +3,22 @@ import json
 import datetime
 import subprocess
 
-CONFIG_PATH = "config.json"
+# Get the directory of the current script
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+CONFIG_PATH = os.path.join(SCRIPT_DIR, "config.json")
+
+if not os.path.exists(CONFIG_PATH):
+    print(f"Error: {CONFIG_PATH} not found.")
+    sys.exit(1)
 
 with open(CONFIG_PATH) as f:
     config = json.load(f)
 
+# Use absolute path for backup directory if it's relative
 backup_dir = config["backup"]["backup_path"]
+if not os.path.isabs(backup_dir):
+    backup_dir = os.path.join(SCRIPT_DIR, backup_dir)
+
 db = config["mongodb"]
 
 os.makedirs(backup_dir, exist_ok=True)
