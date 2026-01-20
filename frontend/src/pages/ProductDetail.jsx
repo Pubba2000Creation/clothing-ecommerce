@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import { useCart } from '../context/useCart';
 import '../styles/ProductDetail.css';
 import Footer from '../components/Footer';
 
 const ProductDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { addToCart } = useCart();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -38,8 +40,8 @@ const ProductDetail = () => {
             alert('Please select a size');
             return;
         }
-        // console.log('Adding to cart:', { productId: product._id, size: selectedSize, quantity });
-        // In real app, call cart API here
+        addToCart(product, selectedSize, quantity);
+        alert('Item added to cart!');
     };
 
     if (loading) return <div className="loading" style={{ textAlign: 'center', padding: '10rem' }}>Loading product details...</div>;

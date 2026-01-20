@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
+import { useCart } from '../context/useCart';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
     const { isAuthenticated, user, logout } = useAuth();
+    const { cartCount } = useCart();
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -55,7 +57,7 @@ const Navbar = () => {
                                 <circle cx="20" cy="21" r="1"></circle>
                                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                             </svg>
-                            <span className="cart-badge">0</span>
+                            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
                         </Link>
 
                         {isAuthenticated ? (
