@@ -1,0 +1,13 @@
+{
+    "mongodb": {
+        "host": "localhost",
+        "port": 27555,
+        "username": "clothing_user",
+        "password": "clothing_pass",
+        "database": "clothing_db"
+    },
+    "backup": {
+        "backup_path": "./backups",
+        "retention_days": 2
+    }
+}
