@@ -6,14 +6,30 @@ services:
     container_name: clothing_mongodb
     restart: always
     ports:
-      - "27555:27017"
+      - "27555:27555"
+    command: mongod --port 27555
     environment:
       MONGO_INITDB_DATABASE: clothing_db
     volumes:
-      - ./mongo/data:/data/db
+      - mongo_data:/data/db
       - ./mongo/init.js:/docker-entrypoint-initdb.d/init.js:ro
     networks:
       - clothing_network
+
+  db-manager:
+    build: ./db-manager
+    container_name: clothing_db_manager
+    restart: always
+    depends_on:
+      - mongodb
+    volumes:
+      - ./db-manager/backups:/app/backups
+    networks:
+      - clothing_network
+
+volumes:
+  mongo_data:
+
 
 networks:
   clothing_network:

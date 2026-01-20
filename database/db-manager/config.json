@@ -1,6 +1,6 @@
 {
     "mongodb": {
-        "host": "localhost",
+        "host": "mongodb",
         "port": 27555,
         "username": "clothing_user",
         "password": "clothing_pass",

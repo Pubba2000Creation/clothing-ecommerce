@@ -3,7 +3,9 @@ const dotenv = require('dotenv');
 const Product = require('./models/Product');
 const productsSeed = require('./data/products.seed');
 
-dotenv.config();
+const path = require('path');
+
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const connectDB = async () => {
     await mongoose.connect(process.env.MONGO_URI);
