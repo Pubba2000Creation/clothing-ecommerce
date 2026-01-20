@@ -1,4 +1,4 @@
-import { useAuth } from './context/AuthContext';
+import { useAuth } from './context/useAuth';
 
 function App() {
   const { user, isAuthenticated, logout } = useAuth();

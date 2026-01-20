@@ -1,21 +1,23 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
+import { AuthContext } from './AuthContextDecl';
 import api from '../api/axios';
 
-const AuthContext = createContext(null);
+
 
 export const AuthProvider = ({ children }) => {
-    
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
 
-    // Load user from localStorage on refresh
-    useEffect(() => {
+    const [user, setUser] = useState(() => {
         const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
+        if (storedUser && storedUser !== "undefined") {
+            try {
+                return JSON.parse(storedUser);
+            } catch (error) {
+                console.error("Failed to parse user from local storage", error);
+                localStorage.removeItem('user');
+            }
         }
-        setLoading(false);
-    }, []);
+        return null;
+    });
 
     // Register
     const register = async (data) => {
@@ -46,16 +48,15 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 user,
-                loading,
                 isAuthenticated: !!user,
                 register,
                 login,
                 logout,
             }}
         >
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 };
 
-export const useAuth = () => useContext(AuthContext);
+
