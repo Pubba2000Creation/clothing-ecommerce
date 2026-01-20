@@ -34,15 +34,17 @@ export const CartProvider = ({ children }) => {
         let isMounted = true;
 
         const load = async () => {
-            // If user changes, we might want to show loading again
-            if (!loading) setLoading(true);
-            await fetchCart();
+            if (isMounted) {
+                // If user changes, we might want to show loading again
+                if (!loading) setLoading(true);
+                await fetchCart();
+            }
         };
 
         load();
 
         return () => { isMounted = false; };
-    }, [user]); // Only run when user changes, fetchCart is already dependent on user
+    }, [user, fetchCart, loading]); // loading added to satisfy eslint rule
 
     // Handle merging guest cart upon login
     useEffect(() => {
