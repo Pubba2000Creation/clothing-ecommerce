@@ -21,14 +21,28 @@ export const AuthProvider = ({ children }) => {
 
     // Register
     const register = async (data) => {
-        const res = await api.post('/auth/register', data);
-        handleAuthSuccess(res.data.data);
+        try {
+            const res = await api.post('/auth/register', data);
+            if (res.data.success) {
+                handleAuthSuccess(res.data.data);
+                return res.data;
+            }
+        } catch (error) {
+            throw error.response?.data || error;
+        }
     };
 
     // Login
     const login = async (data) => {
-        const res = await api.post('/auth/login', data);
-        handleAuthSuccess(res.data.data);
+        try {
+            const res = await api.post('/auth/login', data);
+            if (res.data.success) {
+                handleAuthSuccess(res.data.data);
+                return res.data;
+            }
+        } catch (error) {
+            throw error.response?.data || error;
+        }
     };
 
     const handleAuthSuccess = ({ token, user }) => {
