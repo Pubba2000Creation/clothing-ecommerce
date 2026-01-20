@@ -2,7 +2,7 @@ const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const sendEmail = require('../utils/email/sendEmail');
-const { trackOrder } = require('../utils/analytics_logger');
+const { trackOrder, trackUserOrder } = require('../utils/analytics_logger');
 
 /**
  * @desc Checkout and create order
@@ -56,6 +56,9 @@ const checkout = async (req, res) => {
         for (const item of orderItems) {
             await trackOrder(item.product.toString(), item.quantity);
         }
+
+        // 📊 Track User Analytics
+        await trackUserOrder(req.user._id.toString(), totalPrice);
 
         // 📧 Send confirmation email
         const emailHtml = `
