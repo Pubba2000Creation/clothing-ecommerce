@@ -48,12 +48,6 @@ const Home = () => {
                 <h2 className="section-title">Trending Now</h2>
                 <div className="tabs">
                     <button
-                        className={`tab-btn ${activeTab === 'best-seller' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('best-seller')}
-                    >
-                        Best Seller
-                    </button>
-                    <button
                         className={`tab-btn ${activeTab === 'top-rate' ? 'active' : ''}`}
                         onClick={() => setActiveTab('top-rate')}
                     >
