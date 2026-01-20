@@ -1,0 +1,248 @@
+/* Home Page Styles */
+
+.home-container {
+    width: 100%;
+}
+
+/* Sections Global */
+section {
+    padding: 5rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.section-title::after {
+    content: '◇';
+    display: block;
+    font-size: 1rem;
+    color: var(--sage);
+    margin-top: 0.5rem;
+}
+
+/* Hero Section */
+.hero {
+    height: 85vh;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: url('https://static.fibre2fashion.com//articleresources/images/76/7511/ecommerce-big_Big.jpg') center/cover no-repeat;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 251, 177, 0.15);
+    /* Tint with Cream */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 10%;
+    max-width: 700px;
+}
+
+.hero-subtitle {
+    color: var(--olive);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    color: #000;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+    background-color: var(--olive);
+    transform: translateY(-5px);
+}
+
+/* New Arrivals Grid */
+.arrivals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.product-card {
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+.product-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background-color: #f5f5f5;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.1);
+}
+
+.badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--lime);
+    color: #000;
+    padding: 0.2rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Trending Now Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #eee;
+}
+
+.tab-btn {
+    padding: 1rem 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    color: #999;
+}
+
+.tab-btn.active {
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+
+/* Collection Section */
+.collection-banners {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.banner-item {
+    height: 400px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+}
+
+.banner-item img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.banner-item:hover img {
+    transform: scale(1.05);
+}
+
+.banner-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    color: #000;
+    width: 60%;
+}
+
+/* Collaborate Brandings */
+.brands-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 0.6;
+    filter: grayscale(1);
+    padding: 3rem 0;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+.brand-icon {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+/* Details Section */
+.details-section {
+    background-color: var(--cream);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    text-align: center;
+}
+
+.detail-item h3 {
+    color: var(--olive);
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .collection-banners {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 3rem 1.5rem;
+    }
+}

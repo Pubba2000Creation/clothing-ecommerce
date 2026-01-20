@@ -1,16 +1,14 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
+import Home from './pages/Home';
 
 function App() {
-
-
   return (
     <BrowserRouter>
       <Navbar />
-      <div style={{ padding: '2rem', height: '200vh' }}>
-        <h1>Welcome to Luminary</h1>
-        <p>Scroll down to test the sticky navbar.</p>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </BrowserRouter>
   );
 }
