@@ -1,0 +1,123 @@
+/* About Us Page Styles */
+.about-page {
+    width: 100%;
+}
+
+.about-hero {
+    height: 400px;
+    background: linear-gradient(rgba(165, 200, 158, 0.2), rgba(255, 251, 177, 0.2)),
+        url('https://images.unsplash.com/photo-1556905055-8f358a7a4bb4?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #000;
+    letter-spacing: 2px;
+}
+
+/* Our Story Section */
+.story-section {
+    padding: 6rem 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.story-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--olive);
+}
+
+.story-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.story-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Values Section */
+.values-section {
+    background-color: var(--cream);
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 3rem auto 0;
+}
+
+.value-card {
+    background: #fff;
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    transition: transform 0.3s;
+}
+
+.value-card:hover {
+    transform: translateY(-10px);
+}
+
+.value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.value-card h3 {
+    margin-bottom: 1rem;
+    color: var(--olive);
+}
+
+/* Team Section Short */
+.team-section {
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 3rem auto 0;
+}
+
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 4px solid var(--sage);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .story-section {
+        grid-template-columns: 1fr;
+        padding: 4rem 1.5rem;
+    }
+
+    .about-hero h1 {
+        font-size: 2.5rem;
+    }
+}

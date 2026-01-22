@@ -1,5 +1,6 @@
 const Cart = require('../models/Cart');
 const Product = require('../models/Product');
+const { trackAddToCart } = require('../utils/analytics_logger');
 
 /**
  * @desc Get logged-in user's cart
@@ -70,6 +71,9 @@ const addToCart = async (req, res) => {
 
             await cart.save();
         }
+
+        // 📊 Track Analytics
+        await trackAddToCart(productId);
 
         return res.status(200).json({
             success: true,
@@ -149,9 +153,7 @@ const removeFromCart = async (req, res) => {
             });
         }
 
-        cart.items = cart.items.filter(
-            (item) => item._id.toString() !== req.params.itemId
-        );
+        cart.items.pull(req.params.itemId);
 
         await cart.save();
 

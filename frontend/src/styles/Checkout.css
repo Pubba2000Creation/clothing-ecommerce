@@ -1,0 +1,212 @@
+/* Checkout Page Styles */
+.checkout-page {
+    max-width: 1000px;
+    margin: 4rem auto 6rem;
+    padding: 0 2rem;
+}
+
+.checkout-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+/* Shipping Info Form (Optional for now, but good for UI) */
+.checkout-section {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+    margin-bottom: 2rem;
+}
+
+.checkout-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.checkout-section h2 span {
+    background: var(--sage);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+/* Order Summary Card */
+.order-summary-card {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 100px;
+}
+
+.order-items-mini {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+    padding-right: 1rem;
+}
+
+.mini-item {
+    display: flex;
+    gap: 1.2rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mini-item:last-child {
+    border-bottom: none;
+}
+
+.mini-image {
+    width: 60px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.mini-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mini-details h4 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.mini-details p {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.checkout-totals {
+    border-top: 2px solid var(--cream);
+    padding-top: 1.5rem;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.total-row.grand-total {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed #ddd;
+    font-weight: 900;
+    font-size: 1.5rem;
+}
+
+.btn-place-order {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 1.2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: all 0.3s;
+}
+
+.btn-place-order:hover {
+    background: var(--olive);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(174, 184, 119, 0.4);
+}
+
+.btn-place-order:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Success Flow */
+.checkout-success {
+    text-align: center;
+    padding: 6rem 0;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--sage);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    font-size: 3rem;
+}
+
+.checkout-success h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.checkout-success p {
+    color: #666;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.success-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.btn-secondary {
+    padding: 1rem 2rem;
+    border: 2px solid #000;
+    background: transparent;
+    color: #000;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .checkout-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .order-summary-card {
+        position: static;
+    }
+}

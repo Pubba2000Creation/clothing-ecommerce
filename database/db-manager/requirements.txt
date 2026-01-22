@@ -1,0 +1,5 @@
+pymongo
+schedule
+python-dotenv
+
+# pip install -r requirements.txt
