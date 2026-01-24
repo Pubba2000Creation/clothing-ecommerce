@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node environment_manager.js dev",
+    "build": "node environment_manager.js build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "node environment_manager.js prod",
+    "start": "node environment_manager.js prod"
   },
   "dependencies": {
     "ax": "^0.2.2",
