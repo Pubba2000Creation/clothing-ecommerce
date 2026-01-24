@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { trackUserRegistration, trackUserLogin } = require("../utils/analytics_logger");
 
 
 /**
@@ -42,6 +43,9 @@ const register = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '7d' }
         );
+
+        // 📊 Track Analytics
+        await trackUserRegistration(user._id.toString());
 
         return res.status(201).json({
             success: true,
@@ -103,6 +107,9 @@ const login = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '7d' }
         );
+
+        // 📊 Track Analytics
+        await trackUserLogin(user._id.toString());
 
         return res.status(200).json({
             success: true,

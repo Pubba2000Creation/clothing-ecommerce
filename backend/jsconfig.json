@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "checkJs": true,
+        "allowJs": true,
+        "baseUrl": "./src"
+    },
+    "include": [
+        "src/**/*",
+        "server.js"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

@@ -1,5 +1,6 @@
 const APIFeatures = require('../utils/apiFeatures');
 const Product = require('../models/Product');
+const ProductAnalytics = require('../models/ProductAnalytics');
 
 /**
  * @desc    Get all products with search, filters & pagination
@@ -86,7 +87,93 @@ const getProductById = async (req, res) => {
     }
 };
 
+/**
+ * @desc    Get new arrival products
+ * @route   GET /api/products/new-arrivals
+ */
+const getNewArrivals = async (req, res) => {
+    try {
+        const products = await Product.find({ isActive: true })
+            .sort({ createdAt: -1 })
+            .limit(8);
+
+        return res.status(200).json({
+            success: true,
+            data: products,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message,
+        });
+    }
+};
+
+/**
+ * @desc    Get top rated products (most added to cart)
+ * @route   GET /api/products/top-rated
+ */
+const getTopRated = async (req, res) => {
+    try {
+        const analytics = await ProductAnalytics.find()
+            .sort({ addToCartCount: -1 })
+            .limit(20) // Fetch extra to ensure we get enough active products
+            .populate('product');
+
+        const products = analytics
+            // @ts-ignore
+            .filter(item => item.product && item.product.isActive)
+            .map(item => item.product)
+            .slice(0, 8);
+
+        return res.status(200).json({
+            success: true,
+            data: products,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message,
+        });
+    }
+};
+
+/**
+ * @desc    Get top seller products (most ordered)
+ * @route   GET /api/products/top-sellers
+ */
+const getTopSellers = async (req, res) => {
+    try {
+        const analytics = await ProductAnalytics.find()
+            .sort({ orderCount: -1 })
+            .limit(20) // Fetch extra to ensure we get enough active products
+            .populate('product');
+
+        const products = analytics
+            // @ts-ignore
+            .filter(item => item.product && item.product.isActive)
+            .map(item => item.product)
+            .slice(0, 8);
+
+        return res.status(200).json({
+            success: true,
+            data: products,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message,
+        });
+    }
+};
+
 module.exports = {
     getProducts,
     getProductById,
+    getNewArrivals,
+    getTopRated,
+    getTopSellers,
 };
