@@ -10,7 +10,7 @@ to buid the containers
 
 docker-compose up --build -d
 
-to start the containers
+##to start the containers
 
 docker-compose up -d
 
